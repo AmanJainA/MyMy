@@ -1,0 +1,16 @@
+.invite-card{
+  max-width:460px; margin:30px auto 0; background:var(--card); border-radius:20px;
+  padding:38px 28px; box-shadow:var(--shadow); border:1px solid rgba(201,162,39,0.3);
+  text-align:center; position:relative;
+}
+.invite-card::before, .invite-card::after{
+  content:''; position:absolute; width:34px; height:34px; border:2px solid var(--gold);
+  opacity:0.7;
+}
+.invite-card::before{ top:10px; left:10px; border-right:none; border-bottom:none; }
+.invite-card::after{ bottom:10px; right:10px; border-left:none; border-top:none; }
+
+.invite-line{ font-family:'Great Vibes', cursive; color:var(--rose); font-size:1.3rem; margin-bottom:14px; }
+.invite-name{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:2rem; color:var(--gold-deep); margin:0; }
+.invite-parents{ font-size:0.82rem; color:var(--text-soft); margin-top:4px; }
+.invite-with{ margin:14px 0; font-family:'Great Vibes', cursive; font-size:1.5rem; color:var(--gold); }

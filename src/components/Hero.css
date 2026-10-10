@@ -1,0 +1,17 @@
+.hero{
+  text-align:center; padding:60px 20px 30px;
+  background: linear-gradient(180deg, var(--ivory) 0%, var(--cream) 100%);
+}
+.hero .kicker{ font-size:1.6rem; }
+.hero h1{
+  font-size:clamp(2.2rem, 7vw, 3.6rem); color:var(--gold-deep); margin:6px 0 4px; font-weight:700;
+}
+.hero .amp{ color:var(--rose); font-family:'Great Vibes', cursive; font-size:0.7em; padding:0 10px; }
+.hero .tagline{ font-family:'Cormorant Garamond', serif; font-style:italic; color:var(--sage); font-size:1.15rem; margin-bottom:10px; }
+.hero-taj{ width:min(340px, 78vw); margin:10px auto; }
+.hero-taj svg{ width:100%; height:auto; filter: drop-shadow(0 10px 18px rgba(160,110,90,0.18)); }
+.scroll-cue{
+  margin-top:18px; font-size:0.75rem; letter-spacing:2px; color:var(--gold-deep); text-transform:uppercase;
+  animation: bounceCue 2s ease-in-out infinite;
+}
+@keyframes bounceCue{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(6px);} }

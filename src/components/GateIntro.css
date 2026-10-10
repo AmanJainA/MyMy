@@ -1,0 +1,105 @@
+.gate-screen{
+  position:fixed; inset:0; z-index:999;
+  background: radial-gradient(ellipse at 50% 30%, #fffdf8 0%, #fdf1de 60%, #f7e3c4 100%);
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  transition: opacity 1s ease, visibility 1s ease;
+  overflow:hidden;
+}
+.gate-screen.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+
+.gate-title{
+  font-family:'Great Vibes', cursive; font-size:1.6rem; color:#a9821f;
+  margin-bottom:18px; text-align:center; letter-spacing:0.5px;
+}
+
+.gate-frame{
+  position:relative; width:min(360px, 84vw); height:min(430px, 74vh);
+  border:10px solid #eecf86; border-bottom-width:14px;
+  border-radius: 160px 160px 10px 10px / 200px 200px 10px 10px;
+  background: linear-gradient(180deg, #fffaf3, #fdf0da);
+  box-shadow: 0 20px 50px rgba(160,110,90,0.25);
+  overflow:hidden;
+  perspective: 1600px;
+}
+
+.gate-door{
+  position:absolute; top:0; bottom:0; width:50%;
+  background:
+    repeating-linear-gradient(90deg, #fffaf3 0 2px, #f6e6c8 2px 3px),
+    linear-gradient(180deg, #fffdf8, #fbeed3);
+  transition: transform 1.4s cubic-bezier(.6,-0.15,.2,1.2);
+  box-shadow: inset 0 0 0 2px rgba(201,162,39,0.35);
+}
+.gate-door::before{
+  content:''; position:absolute; inset:14px;
+  border:1.5px solid rgba(201,162,39,0.55); border-radius:4px;
+}
+.gate-door.left{ left:0; transform-origin:left center; }
+.gate-door.right{ right:0; transform-origin:right center; }
+.gate-frame.open .gate-door.left{ transform: rotateY(-108deg); }
+.gate-frame.open .gate-door.right{ transform: rotateY(108deg); }
+
+.gate-glow{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  opacity:0; transition:opacity 1s ease 0.4s;
+  background: radial-gradient(circle, #fff6df 0%, transparent 70%);
+}
+.gate-frame.open .gate-glow{ opacity:1; }
+
+.ribbon-wrap{
+  position:absolute; inset:0; z-index:5; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.gate-frame.open .ribbon-wrap{ opacity:0; transform:scale(0.6); pointer-events:none; }
+
+.ribbon-band{
+  position:absolute; left:0; right:0; top:50%; height:52px; transform:translateY(-50%);
+  background: linear-gradient(180deg, #d65a51, #c6483f 55%, #a83a32);
+  box-shadow: 0 6px 14px rgba(150,50,40,0.35);
+}
+.ribbon-band::before, .ribbon-band::after{
+  content:''; position:absolute; top:100%; width:0; height:0;
+  border-left:18px solid transparent; border-right:18px solid transparent;
+  border-top:22px solid #a83a32;
+}
+.ribbon-band::before{ left:0; }
+.ribbon-band::after{ right:0; }
+
+.seal-circle{
+  position:relative; z-index:6; width:96px; height:96px; border-radius:50%;
+  background: radial-gradient(circle at 35% 30%, #e8877e, #c6483f 60%, #8f2f28);
+  border:4px solid #eecf86;
+  box-shadow: 0 8px 18px rgba(150,50,40,0.4), inset 0 2px 4px rgba(255,255,255,0.35);
+  display:flex; align-items:center; justify-content:center;
+  animation: sealPulse 2.4s ease-in-out infinite;
+}
+@keyframes sealPulse{
+  0%,100%{ box-shadow:0 8px 18px rgba(150,50,40,0.4), inset 0 2px 4px rgba(255,255,255,0.35), 0 0 0 0 rgba(201,162,39,0.45);}
+  50%{ box-shadow:0 8px 22px rgba(150,50,40,0.4), inset 0 2px 4px rgba(255,255,255,0.35), 0 0 0 12px rgba(201,162,39,0);}
+}
+.seal-monogram{
+  font-family:'Marcellus', serif; font-size:1.5rem; color:#f6d98a; letter-spacing:3px;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.25);
+}
+
+.gate-hint{
+  margin-top:22px; color:#a9821f; font-size:0.78rem; letter-spacing:2px; text-transform:uppercase;
+  animation: hintFloat 2.6s ease-in-out infinite;
+}
+@keyframes hintFloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-5px);} }
+
+.taj-reveal{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  opacity:0; transition: opacity 1s ease 0.9s; text-align:center; padding:20px;
+}
+.gate-frame.open .taj-reveal{ opacity:1; }
+.taj-reveal svg{ width:80%; max-width:280px; }
+.taj-reveal .names{
+  margin-top:10px; font-family:'Cormorant Garamond', serif; font-weight:600;
+  color:#a9821f; font-size:1.05rem; letter-spacing:0.5px;
+}
+
+@media (max-width: 480px){
+  .seal-circle{ width:76px; height:76px; }
+  .seal-monogram{ font-size:1.2rem; }
+}

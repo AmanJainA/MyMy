@@ -1,0 +1,19 @@
+.scratch-section{ text-align:center; }
+
+.heart-outer{
+  position:relative; width:min(300px, 78vw); height:min(270px, 70vw); margin:26px auto 0;
+  clip-path: path('M150 260 C 20 170, -10 90, 40 45 C 80 10, 130 20, 150 65 C 170 20, 220 10, 260 45 C 310 90, 280 170, 150 260 Z');
+  box-shadow: var(--shadow);
+}
+.heart-reveal{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background: linear-gradient(160deg, #f7d9d3, #eaafa4 70%);
+  color:#7a2f26; text-align:center; padding:16px;
+}
+.heart-reveal .rk{ font-family:'Great Vibes', cursive; font-size:1.1rem; }
+.heart-reveal .rd{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.7rem; margin:2px 0; }
+.heart-canvas{ position:absolute; inset:0; touch-action:none; }
+
+.scratch-progress-wrap{ width:min(300px,78vw); height:6px; background:#f0dfc9; border-radius:6px; margin:14px auto 0; overflow:hidden; }
+.scratch-progress-bar{ height:100%; background:linear-gradient(90deg, var(--gold), var(--rose)); transition:width 0.2s ease; }
+.scratch-caption{ margin-top:10px; font-size:0.85rem; color:var(--text-soft); }

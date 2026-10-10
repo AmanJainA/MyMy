@@ -1,0 +1,47 @@
+.config-warning{
+  max-width:600px; margin:0 auto 20px; background:#fff6df; border:1px solid var(--gold-light);
+  color:var(--gold-deep); padding:10px 16px; border-radius:10px; font-size:0.8rem;
+}
+
+.wishes-form{
+  max-width:500px; margin:30px auto 0; background:var(--card); border-radius:18px;
+  padding:26px; box-shadow:var(--shadow); border:1px solid rgba(201,162,39,0.3); text-align:left;
+}
+.field{ margin-bottom:14px; }
+.field label{ display:block; font-size:0.8rem; color:var(--gold-deep); margin-bottom:5px; font-weight:500; }
+.field input, .field textarea{
+  width:100%; padding:10px 12px; border-radius:10px; border:1px solid #ecd9bd;
+  font-family:inherit; font-size:0.92rem; background:#fffdf8; resize:vertical;
+}
+.field input:focus, .field textarea:focus{ outline:2px solid var(--gold); outline-offset:1px; }
+
+.attend-toggle{ display:flex; gap:10px; }
+.attend-toggle button{
+  flex:1; padding:9px; border-radius:10px; border:1px solid #ecd9bd; background:#fffdf8;
+  font-size:0.85rem; color:var(--text-soft); transition:all 0.15s ease;
+}
+.attend-toggle button.active{ background:var(--gold); color:#fff; border-color:var(--gold); }
+
+.submit-btn{
+  width:100%; padding:12px; border-radius:12px; border:none;
+  background:linear-gradient(120deg, var(--gold), var(--rose)); color:#5a2f22;
+  font-weight:600; font-size:0.95rem; box-shadow:var(--shadow); transition:transform 0.15s ease;
+}
+.submit-btn:hover{ transform:translateY(-2px); }
+.submit-btn:disabled{ opacity:0.6; transform:none; }
+
+.form-msg{ margin-top:10px; font-size:0.85rem; text-align:center; }
+.form-msg.ok{ color:#3f8f6b; }
+.form-msg.err{ color:#b1483e; }
+
+.wishes-grid{ margin-top:36px; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
+.wish-card{
+  background:var(--card); border-radius:14px; padding:16px 18px; box-shadow:0 8px 18px rgba(160,110,90,0.12);
+  border-left:4px solid var(--gold); text-align:left;
+}
+.wish-name{ font-family:'Cormorant Garamond', serif; font-size:1.15rem; color:var(--gold-deep); margin:0 0 4px; }
+.wish-msg{ font-size:0.85rem; color:var(--text); line-height:1.5; font-weight:300; }
+.wish-tag{ display:inline-block; margin-top:8px; font-size:0.68rem; padding:2px 9px; border-radius:20px; }
+.wish-tag.yes{ background:#e4f2e9; color:#1f7a4d; }
+.wish-tag.no{ background:#f8e6df; color:#a3492f; }
+.empty-wishes{ text-align:center; color:var(--text-soft); font-size:0.9rem; padding:26px 0; }

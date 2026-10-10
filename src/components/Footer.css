@@ -1,0 +1,6 @@
+.footer{
+  text-align:center; padding:44px 20px 30px; background:var(--gold-deep); color:#fff8e6;
+}
+.footer .script{ font-size:1.8rem; margin-bottom:6px; }
+.footer .meta{ font-size:0.85rem; opacity:0.9; }
+.footer small{ display:block; margin-top:12px; opacity:0.65; font-size:0.72rem; letter-spacing:0.5px; }

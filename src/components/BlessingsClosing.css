@@ -1,0 +1,21 @@
+.blessing-section{ text-align:center; padding-bottom:40px; }
+
+.blessing-card{
+  max-width:480px; margin:26px auto 0; background:linear-gradient(160deg, var(--card), var(--cream));
+  border-radius:22px; padding:40px 30px; box-shadow:var(--shadow);
+  border:1px solid rgba(201,162,39,0.35); position:relative;
+}
+.blessing-card::before, .blessing-card::after{
+  content:''; position:absolute; width:38px; height:38px; border:2px solid var(--gold); opacity:0.7;
+}
+.blessing-card::before{ top:12px; left:12px; border-right:none; border-bottom:none; }
+.blessing-card::after{ bottom:12px; right:12px; border-left:none; border-top:none; }
+
+.blessing-quote{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.25rem;
+  color:var(--text); line-height:1.6; margin-bottom:18px;
+}
+.blessing-names{
+  font-family:'Great Vibes', cursive; font-size:2rem; color:var(--gold-deep);
+}
+.blessing-sub{ margin-top:6px; font-size:0.8rem; letter-spacing:1px; color:var(--text-soft); text-transform:uppercase; }
