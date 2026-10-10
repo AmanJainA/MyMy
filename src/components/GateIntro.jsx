@@ -55,12 +55,13 @@ export default function GateIntro({ onOpen, audioRef }) {
           <span className="gate-panel-line" />
         </div>
 
+        <div className="gate-arch-frame" aria-hidden="true" />
         <div className="gate-center">
           <div className="gate-center-rule" aria-hidden="true" />
           {!unlocked ? (
             <button className="gate-medallion" type="button" onClick={() => setShowLock(true)} aria-label="Enter password to unlock invitation">
-              <span className="medallion-bloom" aria-hidden="true">❦</span>
-              <span className="medallion-stem" aria-hidden="true">♧</span>
+              <span className="medallion-initials" aria-hidden="true"><span className="initial-a">A</span><span className="initial-n">N</span></span>
+              <span className="medallion-flourish" aria-hidden="true">❦</span>
             </button>
           ) : (
             <button className="gate-medallion unlocked-medallion" type="button" onClick={handleOpen} aria-label="Open the invitation">
