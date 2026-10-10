@@ -1,68 +1,91 @@
 import { useState } from 'react';
-import TajMahalIllustration from '../assets/TajMahalIllustration.jsx';
 import { weddingData } from '../data/weddingData.js';
 import './GateIntro.css';
 
 export default function GateIntro({ onOpen, audioRef }) {
+  const [password, setPassword] = useState('');
+  const [unlocked, setUnlocked] = useState(false);
   const [open, setOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  const [error, setError] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  const handleUnlock = (event) => {
+    event.preventDefault();
+    if (password !== '1234@Aman') {
+      setError(true);
+      return;
+    }
+    setError(false);
+    setUnlocked(true);
+  };
 
   const handleOpen = () => {
-    if (open) return;
+    if (!unlocked || open || busy) return;
+    setBusy(true);
     setOpen(true);
 
-    // Play the background song right inside the click handler so it
-    // counts as a user gesture and browsers allow audio with sound.
-    if (audioRef.current) {
+    if (audioRef?.current) {
       audioRef.current.volume = 0.7;
-      audioRef.current.play().catch(() => {
-        /* Autoplay can still be blocked on some browsers — the visible
-           floating audio button lets the guest start it manually. */
-      });
+      audioRef.current.play().catch(() => {});
     }
 
-    // Let the gate + Taj Mahal reveal animation play out, then hand off
-    // to the rest of the site.
     window.setTimeout(() => {
-      setHidden(true);
       onOpen();
-    }, 3200);
+    }, 1800);
   };
 
   return (
-    <div className={`gate-screen${hidden ? ' hidden' : ''}`}>
-      <div className="gate-title">You are lovingly invited</div>
+    <main className={`gate-screen${open ? ' gate-screen-opening' : ''}`}>
+      <div className="invitation-cover">
+        <div className="floral-corner floral-corner-tl" aria-hidden="true">❧ ❀ ❧</div>
+        <div className="floral-corner floral-corner-tr" aria-hidden="true">❧ ❀ ❧</div>
+        <div className="floral-corner floral-corner-bl" aria-hidden="true">❧ ❀ ❧</div>
+        <div className="floral-corner floral-corner-br" aria-hidden="true">❧ ❀ ❧</div>
+        <div className="cover-inner">
+          <div className="cover-topline">A PRIVATE INVITATION</div>
+          <div className="cover-ornament" aria-hidden="true">— ❦ —</div>
+          <p className="cover-eyebrow">With love, we invite you to share</p>
+          <h1 className="cover-title">A beautiful beginning</h1>
+          <p className="cover-subtitle">A celebration of love, family & forever</p>
 
-      <div
-        className={`gate-frame${open ? ' open' : ''}`}
-        role="button"
-        tabIndex={0}
-        aria-label="Tap the seal to open the wedding gate"
-        onClick={handleOpen}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') handleOpen();
-        }}
-      >
-        <div className="gate-door left" />
-        <div className="gate-door right" />
-        <div className="gate-glow" />
+          {!unlocked ? (
+            <form className="password-panel" onSubmit={handleUnlock}>
+              <div className="oval-seal" aria-hidden="true">
+                <span className="seal-flower">❀</span>
+                <span className="seal-initials">{weddingData.monogram}</span>
+              </div>
+              <label htmlFor="invitation-password">ENTER YOUR SECRET PASSWORD</label>
+              <input
+                id="invitation-password"
+                type="password"
+                value={password}
+                onChange={(event) => { setPassword(event.target.value); setError(false); }}
+                placeholder="Enter password"
+                autoComplete="current-password"
+                aria-invalid={error}
+                aria-describedby={error ? 'password-error' : undefined}
+                autoFocus
+              />
+              {error && <p className="password-error" id="password-error">That password doesn’t look right. Please try again.</p>}
+              <button className="cover-button" type="submit">Unlock invitation <span aria-hidden="true">♡</span></button>
+            </form>
+          ) : (
+            <button className="invitation-seal-button" type="button" onClick={handleOpen} aria-label="Open the wedding invitation">
+              <span className="oval-seal oval-seal-ready">
+                <span className="seal-flower">❀</span>
+                <span className="seal-initials">{weddingData.monogram}</span>
+              </span>
+              <span className="open-prompt">Tap the floral seal to open</span>
+            </button>
+          )}
 
-        <div className="taj-reveal">
-          <TajMahalIllustration />
-          <div className="names">
-            {weddingData.groom.fullName} weds {weddingData.bride.fullName}
-          </div>
-        </div>
-
-        <div className="ribbon-wrap">
-          <div className="ribbon-band" />
-          <div className="seal-circle">
-            <span className="seal-monogram">{weddingData.monogram}</span>
+          <div className="cover-bottom">
+            <span className="cover-rule" />
+            <span>MADE WITH LOVE</span>
+            <span className="cover-rule" />
           </div>
         </div>
       </div>
-
-      <div className="gate-hint">Tap the seal to open</div>
-    </div>
+    </main>
   );
 }
