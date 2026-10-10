@@ -6,6 +6,7 @@ export default function GateIntro({ onOpen, audioRef }) {
   const [showLock, setShowLock] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
   const [open, setOpen] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
   const [error, setError] = useState(false);
   const [busy, setBusy] = useState(false);
 
@@ -28,8 +29,13 @@ export default function GateIntro({ onOpen, audioRef }) {
       audioRef.current.volume = 0.7;
       audioRef.current.play().catch(() => {});
     }
-    window.setTimeout(() => onOpen?.(), 1900);
+    window.setTimeout(() => {
+      setDismissed(true);
+      onOpen?.();
+    }, 1900);
   };
+
+  if (dismissed) return null;
 
   return (
     <main className={`gate-screen${open ? ' gate-screen-opening' : ''}`}>
@@ -58,17 +64,17 @@ export default function GateIntro({ onOpen, audioRef }) {
         <div className="gate-arch-frame" aria-hidden="true" />
         <div className="gate-center">
           <div className="gate-center-rule" aria-hidden="true" />
-          {!unlocked ? (
-            <button className="gate-medallion" type="button" onClick={() => setShowLock(true)} aria-label="Enter password to unlock invitation">
-              <span className="medallion-initials" aria-hidden="true"><span className="initial-a">A</span><span className="initial-n">N</span></span>
-              <span className="medallion-flourish" aria-hidden="true">❦</span>
-            </button>
-          ) : (
-            <button className="gate-medallion unlocked-medallion" type="button" onClick={handleOpen} aria-label="Open the invitation">
-              <span className="medallion-bloom" aria-hidden="true">❦</span>
-              <span className="medallion-stem" aria-hidden="true">♧</span>
-            </button>
-          )}
+          <button
+            className={`gate-medallion${unlocked ? ' unlocked-medallion' : ''}`}
+            type="button"
+            onClick={() => unlocked ? handleOpen() : setShowLock(true)}
+            aria-label={unlocked ? 'Open the invitation' : 'Enter password to unlock invitation'}
+          >
+            <span className="medallion-initials" aria-label="A N monogram">
+              <span className="initial-a">A</span><span className="initial-n">N</span>
+            </span>
+            <span className="medallion-flourish" aria-hidden="true">❦</span>
+          </button>
           <div className="gate-hint">{unlocked ? 'Tap the seal to open' : 'A private invitation'}</div>
         </div>
 
