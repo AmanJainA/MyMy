@@ -52,3 +52,18 @@
 @media(max-width:480px){.ornate-gate{width:100vw;height:100dvh;min-height:0}.gate-leaf:before{inset:12px 8px}.gate-medallion{width:84px;height:112px}.medallion-bloom{font-size:43px}.gate-lock-card{padding:32px 22px 24px}.emboss-flower{font-size:clamp(74px,24vw,120px)}.emboss-sprig{font-size:clamp(86px,27vw,135px)}}
 @media(max-height:580px){.gate-medallion{width:68px;height:90px}.medallion-bloom{font-size:35px}.gate-hint{top:calc(100% + 15px)}}
 @media(prefers-reduced-motion:reduce){.gate-leaf,.gate-medallion{transition-duration:.01ms}.is-opening .gate-leaf-left{transform:translateX(-100%)}.is-opening .gate-leaf-right{transform:translateX(100%)}}
+
+/* Traditional haveli-inspired carved gate and A/N monogram */
+.ornate-gate{background:#e2c9bb;box-shadow:0 24px 70px #55372c40,inset 0 0 0 3px #f5e4d8,inset 0 0 0 8px #d9b9a8,inset 0 0 0 10px #9b705d66}
+.ornate-gate:before{inset:17px;border:1px solid #9c74615c;box-shadow:inset 0 0 0 4px #f9e9dd66,inset 0 0 0 6px #9d766329}
+.gate-arch-frame{position:absolute;z-index:4;pointer-events:none;inset:24px 23px;border:2px solid #a9826e55;border-bottom-width:1px;border-radius:48% 48% 0 0 / 17% 17% 0 0;box-shadow:inset 0 0 0 5px #f7e6d9a1,inset 0 0 0 7px #b18a7750}
+.gate-leaf{background-color:#e6d0c3;background-image:linear-gradient(110deg,#fff8f04f,transparent 23%,#98726114 74%,#fff8f02e),repeating-linear-gradient(90deg,transparent 0 46%,#a67f6c10 46.2% 46.5%,transparent 46.7% 100%)}
+.gate-emboss{opacity:.8}
+.emboss-flower{filter:drop-shadow(2px 2px 1px #fff5ecb5) drop-shadow(-1px -1px 1px #8b625225)}
+.gate-center-rule{width:5px;background:linear-gradient(90deg,#9d746255,#f9e9df,#b08a77aa,#f5e1d4)}
+.gate-medallion{width:104px;height:132px;border:2px solid #98715f;background:radial-gradient(ellipse at 33% 23%,#f5e5da,#ddc0b0 70%,#b98f7c);box-shadow:inset 0 0 0 4px #f5e5d9,inset 0 0 0 6px #a67e6b99,inset 0 0 0 9px #f7e8de55,0 5px 16px #68463830,0 1px 2px #fff8ef}
+.medallion-initials{display:flex;align-items:center;justify-content:center;font-family:'Times New Roman',Georgia,serif;font-weight:600;font-size:43px;letter-spacing:-7px;line-height:1;color:#8d6554;text-shadow:1px 1px 0 #fff2e5,-1px -1px 0 #a27b695e;transform:translateX(-3px)}
+.initial-a{position:relative;z-index:1}.initial-n{position:relative;z-index:2;font-size:40px;font-style:italic;margin-left:-1px}
+.medallion-flourish{font-family:Georgia,serif;font-size:17px;line-height:1;color:#a47b68;margin-top:4px}
+.gate-medallion:hover{box-shadow:inset 0 0 0 4px #f5e5d9,inset 0 0 0 6px #a67e6b99,inset 0 0 0 9px #f7e8de55,0 8px 20px #6846383c}
+@media(max-width:480px){.gate-arch-frame{inset:20px 17px}.gate-medallion{width:94px;height:120px}.medallion-initials{font-size:39px}.initial-n{font-size:37px}}
