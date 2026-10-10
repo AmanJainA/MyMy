@@ -1,65 +1,24 @@
-import { useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import GateIntro from './components/GateIntro.jsx';
-import Hero from './components/Hero.jsx';
-import InviteCard from './components/InviteCard.jsx';
-import ScratchCardHeart from './components/ScratchCardHeart.jsx';
-import Countdown from './components/Countdown.jsx';
-import EventsTimeline from './components/EventsTimeline.jsx';
-import WishesForm from './components/WishesForm.jsx';
-import BlessingsClosing from './components/BlessingsClosing.jsx';
-import Footer from './components/Footer.jsx';
-import AudioToggle from './components/AudioToggle.jsx';
-import useScrollReveal from './hooks/useScrollReveal.js';
 import { weddingData } from './data/weddingData.js';
+import './JaipurWedding.css';
 
-export default function App() {
-  const [siteVisible, setSiteVisible] = useState(false);
-  const [playing, setPlaying] = useState(false);
-  const audioRef = useRef(null);
-
-  // Re-scan for .reveal / .tl-item elements once the gate opens and the
-  // rest of the page mounts into the DOM.
-  useScrollReveal([siteVisible]);
-
-  const handleGateOpen = () => {
-    setSiteVisible(true);
-    setPlaying(true);
-  };
-
-  const toggleAudio = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    if (audio.paused) {
-      audio.play().catch(() => {});
-      setPlaying(true);
-    } else {
-      audio.pause();
-      setPlaying(false);
-    }
-  };
-
-  return (
-    <>
-      {/* Background wedding song — add your own licensed track at
-          public/audio/wedding-song.mp3 (see README.md). Not included
-          here since music is copyrighted. */}
-      <audio ref={audioRef} src={weddingData.songSrc} loop />
-
-      <GateIntro onOpen={handleGateOpen} audioRef={audioRef} />
-
-      {siteVisible && (
-        <>
-          <Hero />
-          <InviteCard />
-          <ScratchCardHeart />
-          <Countdown />
-          <EventsTimeline />
-          <WishesForm />
-          <BlessingsClosing />
-          <Footer />
-          <AudioToggle playing={playing} onToggle={toggleAudio} />
-        </>
-      )}
-    </>
-  );
-}
+const events = [
+ {key:'haldi',name:'Haldi',hindi:'पीले रंग की खुशियाँ',date:'23 November 2026',day:'Monday',time:'10:00 AM',icon:'✺',desc:'A sunlit morning of haldi, marigolds, family blessings and joyful traditions.',tone:'haldi'},
+ {key:'mehendi',name:'Mehendi',hindi:'रंग, राग और रचती मेहंदी',date:'22 November 2026',day:'Sunday',time:'4:00 PM',icon:'❋',desc:'Intricate henna, folk melodies and sweet moments in a garden dressed for celebration.',tone:'mehendi'},
+ {key:'barat',name:'Baraat & Pheras',hindi:'शुभ विवाह',date:'24 November 2026',day:'Tuesday',time:'7:00 PM',icon:'❈',desc:'A royal procession followed by sacred vows beneath a flower-adorned mandap.',tone:'barat'},
+ {key:'reception',name:'Reception',hindi:'एक नई शुरुआत का जश्न',date:'25 November 2026',day:'Wednesday',time:'7:30 PM',icon:'✧',desc:'An elegant evening of warm embraces, delicious food and memories to cherish.',tone:'reception'}
+];
+function Floral({className=''}){return <svg className={`floral ${className}`} viewBox="0 0 180 220" aria-hidden="true"><path d="M18 205C70 155 40 96 116 28M47 171C15 156 11 129 20 110C47 117 59 141 47 171ZM78 113C111 119 132 103 139 78C111 74 86 88 78 113ZM108 46C90 29 91 13 104 4C124 18 125 33 108 46Z" fill="none" stroke="currentColor" strokeWidth="2"/><g transform="translate(117 145)"><ellipse cy="-17" rx="9" ry="17"/><ellipse cy="17" rx="9" ry="17"/><ellipse cx="-17" rx="17" ry="9"/><ellipse cx="17" rx="17" ry="9"/><ellipse cx="-12" cy="-12" rx="8" ry="14" transform="rotate(-45 -12 -12)"/><ellipse cx="12" cy="-12" rx="8" ry="14" transform="rotate(45 12 -12)"/><circle r="7" fill="currentColor"/></g></svg>}
+function Countdown(){const target=useMemo(()=>new Date(weddingData.weddingDateISO).getTime(),[]);const[now,setNow]=useState(Date.now());useEffect(()=>{const id=setInterval(()=>setNow(Date.now()),1000);return()=>clearInterval(id)},[]);const d=Math.max(0,target-now);const units=[['Days',Math.floor(d/86400000)],['Hours',Math.floor(d/3600000)%24],['Minutes',Math.floor(d/60000)%60],['Seconds',Math.floor(d/1000)%60]];return <div className="countdown-units">{units.map(([label,value])=><div className="count-unit" key={label}><strong>{String(value).padStart(2,'0')}</strong><span>{label}</span></div>)}</div>}
+function Navigation(){const[open,setOpen]=useState(false);return <nav className="jaipur-nav"><a className="nav-mark" href="#home">A <i>♥</i> N</a><button className="nav-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={()=>setOpen(!open)}>{open?'×':'☰'}</button><div className={`nav-links ${open?'nav-links-open':''}`}>{[['Home','home'],['Our Story','story'],['Events','events'],['Venue','venue'],['RSVP','rsvp']].map(([label,id])=><a key={id} href={`#${id}`} onClick={()=>setOpen(false)}>{label}</a>)}</div></nav>}
+function JaipurWedding(){const[name,setName]=useState('');const[count,setCount]=useState('2');const[submitted,setSubmitted]=useState(false);const query=encodeURIComponent(weddingData.venue.mapsSearchQuery||weddingData.venue.name+', Jaipur');const maps=`https://www.google.com/maps/search/?api=1&query=${query}`;return <div className="jaipur-wedding"><Navigation/><main>
+<section className="jaipur-hero" id="home"><div className="hero-sun"/><div className="hero-arch"/><Floral className="hero-floral hero-floral-left"/><Floral className="hero-floral hero-floral-right"/><div className="hero-copy"><span className="eyebrow">॥ श्री गणेशाय नमः ॥</span><p className="hero-overline">Together with their families</p><p className="hero-script">With hearts full of love</p><h1><span>{weddingData.groom.firstName}</span><em>&amp;</em><span>{weddingData.bride.firstName}</span></h1><div className="hero-rule"><span>✦</span></div><p className="hero-invite">invite you to witness the beginning<br/>of their forever</p><p className="hero-date">{weddingData.weddingDateLabel}</p><p className="hero-place">THE PINK CITY · JAIPUR, RAJASTHAN</p><a className="outline-link" href="#events">Explore the celebrations <span>↓</span></a></div><div className="hero-bottom-note">A ROYAL CELEBRATION OF LOVE</div></section>
+<section className="story-section section-pad" id="story"><div className="section-kicker">A tale written in the stars</div><h2>Two hearts. <i>One beautiful</i> journey.</h2><div className="ornament-divider">❦ <span>✦</span> ❦</div><div className="story-card"><Floral className="story-floral"/><p className="story-quote">“Two families, two stories, and a thousand little moments have led to this beautiful beginning.”</p><div className="couple-names"><div><span>The Groom</span><h3>{weddingData.groom.fullName}</h3><small>Son of {weddingData.groom.fatherName} &amp; {weddingData.groom.motherName}</small></div><b>&amp;</b><div><span>The Bride</span><h3>{weddingData.bride.fullName}</h3><small>Daughter of {weddingData.bride.fatherName} &amp; {weddingData.bride.motherName}</small></div></div></div></section>
+<section className="events-section section-pad" id="events"><div className="section-kicker">The festivities</div><h2>Days of <i>joy &amp; celebration</i></h2><p className="section-intro">From turmeric-kissed mornings to a night beneath the stars, join us for every treasured tradition.</p><div className="event-grid">{events.map((e,i)=><article className={`event-card event-${e.tone}`} key={e.key}><div className="event-topline"><span>0{i+1} / THE CELEBRATIONS</span><span className="event-icon">{e.icon}</span></div><div className="event-art"><span>{e.icon}</span><i>✧</i><b>❋</b></div><p className="event-hindi">{e.hindi}</p><h3>{e.name}</h3><div className="event-date">{e.date} <span>·</span> {e.day}</div><div className="event-time">{e.time}</div><p className="event-desc">{e.desc}</p><div className="event-venue">⌖ &nbsp;{weddingData.venue.name}</div><a href={maps} target="_blank" rel="noreferrer" className="text-link">Venue details ↗</a></article>)}</div></section>
+<section className="timeline-section section-pad"><div className="section-kicker">A little itinerary</div><h2>Our wedding <i>journey</i></h2><div className="wedding-timeline">{events.map(e=><div className="timeline-row" key={e.key}><div className="timeline-marker">{e.icon}</div><div className="timeline-copy"><span>{e.date} · {e.time}</span><h3>{e.name}</h3><p>{e.desc}</p></div></div>)}</div></section>
+<section className="countdown-section section-pad"><Floral className="count-floral count-floral-left"/><Floral className="count-floral count-floral-right"/><div className="section-kicker">The days are drawing near</div><h2>Until <i>forever begins</i></h2><p>{weddingData.weddingDateLabel} · {weddingData.city}</p><Countdown/><span className="countdown-blessing">॥ शुभ विवाह ॥</span></section>
+<section className="venue-section section-pad" id="venue"><div className="venue-copy"><div className="section-kicker">Meet us in the Pink City</div><h2>A place for <i>memories</i></h2><p className="venue-lead">Where Jaipur’s timeless charm meets the warmth of our families.</p><h3>{weddingData.venue.name}</h3><p>{weddingData.venue.address}</p><p className="venue-city">{weddingData.city}</p><a className="solid-link" href={maps} target="_blank" rel="noreferrer">Get directions <span>↗</span></a></div><div className="map-frame"><iframe title="Wedding venue map" src={`https://maps.google.com/maps?q=${query}&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen/></div></section>
+<section className="rsvp-section section-pad" id="rsvp"><Floral className="rsvp-floral"/><div className="section-kicker">Kindly reply</div><h2>Will you join <i>our celebration?</i></h2><p className="section-intro">Your presence will make our special day even more meaningful.</p>{submitted?<div className="rsvp-success" role="status"><span>✿</span><h3>Thank you, {name.trim()}!</h3><p>Thank you for celebrating this special moment with us. We can’t wait to see you.</p><button className="text-link" onClick={()=>setSubmitted(false)}>Edit response</button></div>:<form className="rsvp-form" onSubmit={e=>{e.preventDefault();if(name.trim())setSubmitted(true)}}><label htmlFor="guest-name">Your name</label><input id="guest-name" value={name} onChange={e=>setName(e.target.value)} placeholder="Enter your full name" required maxLength={100}/><label htmlFor="guest-count">Number of guests</label><select id="guest-count" value={count} onChange={e=>setCount(e.target.value)}>{[1,2,3,4,5,6,7,8].map(n=><option key={n} value={String(n)}>{n} {n===1?'guest':'guests'}</option>)}</select><button className="solid-link rsvp-submit" type="submit">Confirm attendance <span>♡</span></button></form>}</section>
+</main><footer className="jaipur-footer"><div className="footer-flower">❋</div><p>With love,</p><h2>{weddingData.bride.firstName} <i>&amp;</i> {weddingData.groom.firstName}</h2><span>{weddingData.weddingDateLabel} · Jaipur, Rajasthan</span><div className="footer-rule">✦</div><small>MADE WITH LOVE, FOR A DAY TO REMEMBER</small></footer></div>}
+export default function App(){const[visible,setVisible]=useState(false);const[playing,setPlaying]=useState(false);const audioRef=useRef(null);const toggleAudio=()=>{const audio=audioRef.current;if(!audio)return;if(audio.paused){audio.play().catch(()=>{});setPlaying(true)}else{audio.pause();setPlaying(false)}};return <><audio ref={audioRef} src={weddingData.songSrc} loop/><GateIntro onOpen={()=>{setVisible(true);setPlaying(true)}} audioRef={audioRef}/>{visible&&<><JaipurWedding/><button className="music-toggle" onClick={toggleAudio} aria-label={playing?'Pause wedding music':'Play wedding music'}>{playing?'♫':'♪'}</button></>}</>}
